@@ -1,9 +1,25 @@
 import React from 'react'
 
-const Post = () => {
+interface Person {
+  firstName: string
+  lastName: string
+}
+
+interface Props {
+  text: string
+  bool?: boolean
+  i?: number // int and double
+  fn?: (bob: string) => string
+  obj?: {
+    f1: string
+  }
+  interface?: Person
+}
+
+const Post: React.FC<Props> = ({ text }) => {
   return (
     <>
-      <p>test</p>
+      <p>{text}</p>
     </>
   )
 }
