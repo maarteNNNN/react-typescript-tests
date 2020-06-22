@@ -1,10 +1,10 @@
 import React from 'react'
-import Posts from './views/Post'
+import ListUsers from './views/ListUsers'
 
 const App: React.FC = () => {
   return (
     <div className='App'>
-      <Posts />
+      <ListUsers />
     </div>
   )
 }
