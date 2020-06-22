@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import http from '../utils/http'
 
@@ -17,7 +17,7 @@ const Posts: React.FC<Props> = () => {
   const [page, setPage] = useState<number>(1)
   const [posts, setPosts] = useState<Post[] | null>(null)
 
-  const handleClick = async (p: number): Promise<any> => {
+  const getPosts = async (p: number): Promise<any> => {
     if (!(p && p >= 1)) {
       setMessage("You shouldn't go below page 1...")
       return
@@ -32,12 +32,16 @@ const Posts: React.FC<Props> = () => {
     setPage(p)
   }
 
+  useEffect(() => {
+    !(posts && posts.length) && getPosts(page)
+  })
+
   return (
     <div style={{ textAlign: 'center' }}>
       {posts ? (
         <>
-          <button onClick={() => handleClick(page - 1)}>Previous page</button> |{' '}
-          <button onClick={() => handleClick(page + 1)}>Next page</button>
+          <button onClick={() => getPosts(page - 1)}>Previous page</button> |{' '}
+          <button onClick={() => getPosts(page + 1)}>Next page</button>
           {message && <p>{message}</p>}
           <br />
           {posts.map((post) => (
@@ -61,7 +65,6 @@ const Posts: React.FC<Props> = () => {
           <br />
         </>
       )}
-      <button onClick={() => handleClick(page)}>Testing this</button>
     </div>
   )
 }
